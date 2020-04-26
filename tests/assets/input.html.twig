@@ -1,0 +1,23 @@
+<header>
+    <h1>{{ __('text 1') }}</h1>
+    <h1>{{ __('text 2 with domain', 'text-domain1') }}</h1>
+</header>
+
+<div>
+    <p>{{ __('text 3 (with parenthesis)') }}</p>
+    <p>{{ _x('text 4', 'some context here') }}</p>
+    <p>{{ _x('text 5 "with double quotes"', 'some other context', 'text-domain2') }}</p>
+    <p>{{ __('text 6 \'with escaped single quotes\'') }}</p>
+</div>
+
+<div>
+    <p>{{ _n("text 7 %d foo", "text 7 %d foos", any_constant, 'text-domain2') }}</p>
+    <p>{{ _nx("text 8 %d bar", "text 8 %d bars", ['bar'] | length, 'another context') }}</p>
+    <p>{{ __("text 9 \"with escaped double quotes\"") }}</p>
+    <p>{{ __("text 10 'with single quotes'") }}</p>
+    <p>
+    {# notes: This is an actual note for translators. #}
+    {{ _n("text 11 with plural", "The plural form", 5) }}
+    </p>
+    <p>
+</div>

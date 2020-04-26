@@ -1,0 +1,7 @@
+msgid ""
+msgstr ""
+"X-Domain: text-domain1\n"
+
+#: ./tests/assets/input.html.twig:3
+msgid "text 2 with domain"
+msgstr ""

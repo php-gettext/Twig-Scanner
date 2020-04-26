@@ -1,0 +1,38 @@
+msgid ""
+msgstr ""
+
+#: ./tests/assets/input.html.twig:2
+msgid "text 1"
+msgstr ""
+
+#: ./tests/assets/input.html.twig:7
+msgid "text 3 (with parenthesis)"
+msgstr ""
+
+#: ./tests/assets/input.html.twig:8
+msgctxt "some context here"
+msgid "text 4"
+msgstr ""
+
+#: ./tests/assets/input.html.twig:10
+msgid "text 6 'with escaped single quotes'"
+msgstr ""
+
+#: ./tests/assets/input.html.twig:15
+msgctxt "another context"
+msgid "text 8 %d bar"
+msgid_plural "text 8 %d bars"
+msgstr[0] ""
+
+#: ./tests/assets/input.html.twig:16
+msgid "text 9 \"with escaped double quotes\""
+msgstr ""
+
+#: ./tests/assets/input.html.twig:17
+msgid "text 10 'with single quotes'"
+msgstr ""
+
+#: ./tests/assets/input.html.twig:20
+msgid "text 11 with plural"
+msgid_plural "The plural form"
+msgstr[0] ""

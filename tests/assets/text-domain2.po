@@ -1,0 +1,13 @@
+msgid ""
+msgstr ""
+"X-Domain: text-domain2\n"
+
+#: ./tests/assets/input.html.twig:9
+msgctxt "some other context"
+msgid "text 5 \"with double quotes\""
+msgstr ""
+
+#: ./tests/assets/input.html.twig:14
+msgid "text 7 %d foo"
+msgid_plural "text 7 %d foos"
+msgstr[0] ""

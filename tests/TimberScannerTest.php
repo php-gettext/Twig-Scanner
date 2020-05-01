@@ -12,21 +12,18 @@ declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
-use Exception;
 use Gettext\Generator\PoGenerator;
-use Gettext\Scanner\TwigScanner;
+use Gettext\Scanner\TimberScanner;
 use Gettext\Translations;
 use PHPUnit\Framework\TestCase;
 
-class TwigScannerTest extends TestCase
+class TimberScannerTest extends TestCase
 {
-
     const INPUT_FILE = './tests/assets/input.html.twig';
 
-    protected function initAndGetTranslations(TwigScanner $scanner, int $countDomains = 1): array
+    protected function initAndGetTranslations(TimberScanner $scanner, int $countDomains = 1): array
     {
         $scanner->ignoreInvalidFunctions(false);
-        $scanner->setTimberFlavor();
         $scanner->extractCommentsStartingWith('notes:');
         $this->assertCount($countDomains, $scanner->getTranslations());
 
@@ -36,7 +33,7 @@ class TwigScannerTest extends TestCase
 
     public function testTwigCodeScanner()
     {
-        $scanner = new TwigScanner(Translations::create());
+        $scanner = new TimberScanner(Translations::create());
         list('' => $translations) = $this->initAndGetTranslations($scanner);
 
         $this->assertCount(8, $translations);
@@ -52,11 +49,11 @@ class TwigScannerTest extends TestCase
 
     public function testTwigCodeScannerOtherDomains()
     {
-        $scanner = new TwigScanner(
+        $scanner = new TimberScanner(
             Translations::create('text-domain1'),
             Translations::create('text-domain2')
         );
-        
+
         list('text-domain1' => $tr1, 'text-domain2' => $tr2) = $this->initAndGetTranslations($scanner, 2);
 
         $this->assertCount(1, $tr1);

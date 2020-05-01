@@ -1,9 +1,9 @@
 {
-    "name": "drzraf/twig-scanner",
+    "name": "php-gettext/twig-scanner",
     "type": "library",
     "description": "Twig scanner for gettext",
     "keywords": ["twig", "gettext", "i18n", "translation", "scanner"],
-    "homepage": "https://github.com/drzraf/twig-scanner",
+    "homepage": "https://github.com/php-gettext/twig-scanner",
     "license": "GPL-3.0-or-later",
     "authors": [
         {

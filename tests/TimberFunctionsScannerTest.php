@@ -12,18 +12,28 @@ declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
-use Gettext\Scanner\TwigScanner;
+use Gettext\Scanner\TimberScanner;
 use Gettext\Scanner\TwigFunctionsScanner;
 use PHPUnit\Framework\TestCase;
 
-class TwigFunctionsScannerTest extends TestCase
+class TimberFunctionsScannerTest extends TestCase
 {
+    private static $timberFunctions = [
+        '__',
+        '_e',
+        '_x',
+        '_ex',
+        '_n',
+        '_nx',
+        '_n_noop',
+        '_nx_noop',
+    ];
 
     public function testScanOnEmptyCode()
     {
         $scanner = new TwigFunctionsScanner(
-            TwigScanner::createTwig(true),
-            TwigScanner::WP_FUNCTIONS
+            TimberScanner::createTwig(),
+            self::$timberFunctions
         );
         $file = __DIR__ . '/assets/input.html.twig';
         $functions = $scanner->scan('', $file);
@@ -34,8 +44,8 @@ class TwigFunctionsScannerTest extends TestCase
     public function testTwigFunctionsExtractor()
     {
         $scanner = new TwigFunctionsScanner(
-            TwigScanner::createTwig(true),
-            TwigScanner::WP_FUNCTIONS
+            TimberScanner::createTwig(),
+            self::$timberFunctions
         );
         $file = __DIR__ . '/assets/input.html.twig';
         $code = file_get_contents($file);
@@ -149,12 +159,12 @@ class TwigFunctionsScannerTest extends TestCase
         $function = array_shift($functions);
         $this->assertSame('_n', $function->getName());
         $this->assertSame(2, $function->countArguments());
-        $this->assertSame(["text 11 with plural", "The plural form"], $function->getArguments());
+        $this->assertSame(['text 11 with plural', 'The plural form'], $function->getArguments());
         $this->assertSame(20, $function->getLine());
         $this->assertSame(20, $function->getLastLine());
         $this->assertSame($file, $function->getFilename());
         $this->assertCount(0, $function->getComments());
-        /** ToDo
+        /* ToDo
         $comments = $function->getComments();
         $this->assertSame("notes: This is an actual note for translators.", array_shift($comments));
         */

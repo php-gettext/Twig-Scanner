@@ -48,7 +48,7 @@ class TimberScanner extends TwigScanner
 
     protected function text(ParsedFunction $function): ?Translation
     {
-        list($original, $domain) = $function->getArguments();
+        list($original, $domain) = array_pad($function->getArguments(), 2, null);
 
         return $this->addComments(
             $function,
@@ -58,7 +58,7 @@ class TimberScanner extends TwigScanner
 
     protected function text_context(ParsedFunction $function): ?Translation
     {
-        list($original, $context, $domain) = $function->getArguments();
+        list($original, $context, $domain) = array_pad($function->getArguments(), 3, null);
 
         return $this->addComments(
             $function,
@@ -68,7 +68,7 @@ class TimberScanner extends TwigScanner
 
     protected function single_plural_number(ParsedFunction $function): ?Translation
     {
-        list($original, $plural, $number, $domain) = $function->getArguments();
+        list($original, $plural, $number, $domain) = array_pad($function->getArguments(), 4, null);
 
         return $this->addComments(
             $function,
@@ -78,7 +78,7 @@ class TimberScanner extends TwigScanner
 
     protected function single_plural_number_context(ParsedFunction $function): ?Translation
     {
-        list($original, $plural, $number, $context, $domain) = $function->getArguments();
+        list($original, $plural, $number, $context, $domain) = array_pad($function->getArguments(), 5, null);
 
         return $this->addComments(
             $function,
@@ -88,7 +88,7 @@ class TimberScanner extends TwigScanner
 
     protected function single_plural(ParsedFunction $function): ?Translation
     {
-        list($original, $plural, $domain) = $function->getArguments();
+        list($original, $plural, $domain) = array_pad($function->getArguments(), 3, null);
 
         return $this->addComments(
             $function,
@@ -98,7 +98,7 @@ class TimberScanner extends TwigScanner
 
     protected function single_plural_context(ParsedFunction $function): ?Translation
     {
-        list($original, $plural, $context, $domain) = $function->getArguments();
+        list($original, $plural, $context, $domain) = array_pad($function->getArguments(), 4, null);
 
         return $this->addComments(
             $function,

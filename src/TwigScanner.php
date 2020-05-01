@@ -43,7 +43,7 @@ class TwigScanner extends CodeScanner
 
     public function getFunctionsScanner(): FunctionsScannerInterface
     {
-        $twig = $this->twig ?: self::createTwig();
+        $twig = $this->twig ?: static::createTwig();
 
         return new TwigFunctionsScanner($twig, array_keys($this->functions));
     }

@@ -14,7 +14,7 @@ namespace Gettext\Scanner;
 
 use Twig\Environment;
 use Twig\Source;
-use Twig_Node_Expression_Function;
+use Twig\Node\Expression\FunctionExpression;
 
 class TwigFunctionsScanner implements FunctionsScannerInterface
 {
@@ -27,19 +27,21 @@ class TwigFunctionsScanner implements FunctionsScannerInterface
         $this->functions = $functions;
     }
 
-    private function createFunction(Twig_Node_Expression_Function $node, string $filename): ?ParsedFunction
+    private function createFunction(FunctionExpression $node, string $filename): ?ParsedFunction
     {
         $name = $node->getAttribute('name');
 
-        if (in_array($name, $this->functions)) {
+        if (! in_array($name, $this->functions, true)) {
             return null;
         }
 
-        $line = $value->getTemplateLine();
+        $line = $node->getTemplateLine();
         $function = new ParsedFunction($name, $filename, $line);
 
-        foreach ($value->getNode('arguments')->getIterator() as $argument) {
-            $function->addArgument($argument->getAttribute('value'));
+        foreach ($node->getNode('arguments')->getIterator() as $argument) {
+            // Some *n*gettext() arguments may not be regular values but expressions.
+            $arg = $argument->hasAttribute('value') ? $argument->getAttribute('value') : null;
+            $function->addArgument($arg);
         }
 
         return $function;
@@ -51,7 +53,7 @@ class TwigFunctionsScanner implements FunctionsScannerInterface
      */
     private function extractGettextFunctions($token, string $filename, array &$functions): void
     {
-        if ($token instanceof Twig_Node_Expression_Function) {
+        if ($token instanceof FunctionExpression) {
             $function = $this->createFunction($token, $filename);
 
             if ($function) {
@@ -68,15 +70,13 @@ class TwigFunctionsScanner implements FunctionsScannerInterface
 
     public function scan(string $code, string $filename): array
     {
-        $function = [];
+        $functions = [];
 
         $tokens = $this->twig->parse(
             $this->twig->tokenize(new Source($code, $filename))
         );
 
-        foreach ($tokens as $token) {
-            $this->extractFunctions($token, $filename, $functions);
-        }
+        $this->extractGettextFunctions($tokens, $filename, $functions);
 
         return $functions;
     }

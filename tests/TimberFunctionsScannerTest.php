@@ -41,6 +41,18 @@ class TimberFunctionsScannerTest extends TestCase
         $this->assertSame([], $functions);
     }
 
+    public function cmp($function, $file, $line, $name, $args, $comments = [])
+    {
+        $this->assertSame($file, $function->getFilename());
+        $this->assertSame($line, $function->getLine());
+        $this->assertSame($line, $function->getLastLine());
+        $this->assertSame($name, $function->getName());
+        $this->assertSame($args, $function->getArguments());
+        if ($comments) {
+            $this->assertCount(count($comments), $function->getComments());
+        }
+    }
+
     public function testTwigFunctionsExtractor()
     {
         $scanner = new TwigFunctionsScanner(
@@ -50,123 +62,55 @@ class TimberFunctionsScannerTest extends TestCase
         $file = __DIR__ . '/assets/input.html.twig';
         $code = file_get_contents($file);
         $functions = $scanner->scan($code, $file);
-
         $this->assertCount(11, $functions);
 
         // text 1
         $function = array_shift($functions);
-        $this->assertSame('__', $function->getName());
-        $this->assertSame(1, $function->countArguments());
-        $this->assertSame(['text 1'], $function->getArguments());
-        $this->assertSame(2, $function->getLine());
-        $this->assertSame(2, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 2, '__', ['text 1']);
 
         // text 2
         $function = array_shift($functions);
-        $this->assertSame('__', $function->getName());
-        $this->assertSame(2, $function->countArguments());
-        $this->assertSame(['text-domain1', 'text 2 with domain'], $function->getArguments());
-        $this->assertSame(3, $function->getLine());
-        $this->assertSame(3, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 3, '__', ['text 2 with domain', 'text-domain1']);
 
         // text 3
         $function = array_shift($functions);
-        $this->assertSame('__', $function->getName());
-        $this->assertSame(1, $function->countArguments());
-        $this->assertSame(7, $function->getLine());
-        $this->assertSame(7, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 7, '__', [ 'text 3 (with parenthesis)']);
 
         // text 4
         $function = array_shift($functions);
-        $this->assertSame('_x', $function->getName());
-        $this->assertSame(2, $function->countArguments());
-        $this->assertSame(['some context here', 'text 4'], $function->getArguments());
-        $this->assertSame(8, $function->getLine());
-        $this->assertSame(8, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 8, '_x', ['text 4', 'some context here']);
 
         // text 5
         $function = array_shift($functions);
-        $this->assertSame('_x', $function->getName());
-        $this->assertSame(3, $function->countArguments());
-        $this->assertSame(
-            ['text-domain2', 'some other context', 'text 5 "with double quotes"'],
-            $function->getArguments()
-        );
-        $this->assertSame(9, $function->getLine());
-        $this->assertSame(9, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 9, '_x', ['text 5 "with double quotes"', 'some other context', 'text-domain2']);
 
         // text 6
         $function = array_shift($functions);
-        $this->assertSame('__', $function->getName());
-        $this->assertSame(1, $function->countArguments());
-        $this->assertSame(['text 6 \'with escaped single quotes\''], $function->getArguments());
-        $this->assertSame(10, $function->getLine());
-        $this->assertSame(10, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 10, '__', ['text 6 \'with escaped single quotes\'']);
 
         // text 7
         $function = array_shift($functions);
-        $this->assertSame('_n', $function->getName());
-        $this->assertSame(3, $function->countArguments());
-        $this->assertSame(['text-domain2', 'text 7 %d foo', 'text 7 %d foos'], $function->getArguments());
-        $this->assertSame(14, $function->getLine());
-        $this->assertSame(14, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 14, '_n', ['text 7 %d foo', 'text 7 %d foos', null, 'text-domain2']);
 
         // text 8
         $function = array_shift($functions);
-        $this->assertSame('_nx', $function->getName());
-        $this->assertSame(3, $function->countArguments());
-        $this->assertSame(['another context', 'text 8 %d bar', 'text 8 %d bars'], $function->getArguments());
-        $this->assertSame(15, $function->getLine());
-        $this->assertSame(15, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 15, '_nx', ['text 8 %d bar', 'text 8 %d bars', null, 'another context']);
 
         // text 9
         $function = array_shift($functions);
-        $this->assertSame('__', $function->getName());
-        $this->assertSame(1, $function->countArguments());
-        $this->assertSame(['text 9 "with escaped double quotes"'], $function->getArguments());
-        $this->assertSame(16, $function->getLine());
-        $this->assertSame(16, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 16, '__', ['text 9 "with escaped double quotes"']);
 
         // text 10
         $function = array_shift($functions);
-        $this->assertSame('__', $function->getName());
-        $this->assertSame(1, $function->countArguments());
-        $this->assertSame(["text 10 'with single quotes'"], $function->getArguments());
-        $this->assertSame(17, $function->getLine());
-        $this->assertSame(17, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 17, '__', ["text 10 'with single quotes'"]);
 
         // text 11
         $function = array_shift($functions);
-        $this->assertSame('_n', $function->getName());
-        $this->assertSame(2, $function->countArguments());
-        $this->assertSame(['text 11 with plural', 'The plural form'], $function->getArguments());
-        $this->assertSame(20, $function->getLine());
-        $this->assertSame(20, $function->getLastLine());
-        $this->assertSame($file, $function->getFilename());
-        $this->assertCount(0, $function->getComments());
+        $this->cmp($function, $file, 20, '_n', ['text 11 with plural', 'The plural form', 5]);
+
         /* ToDo
-        $comments = $function->getComments();
-        $this->assertSame("notes: This is an actual note for translators.", array_shift($comments));
+           $comments = $function->getComments();
+           $this->assertSame("notes: This is an actual note for translators.", array_shift($comments));
         */
     }
 }

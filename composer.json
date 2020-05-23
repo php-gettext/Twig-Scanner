@@ -1,5 +1,5 @@
 {
-    "name": "php-gettext/twig-scanner",
+    "name": "gettext/twig-scanner",
     "type": "library",
     "description": "Twig scanner for gettext",
     "keywords": ["twig", "gettext", "i18n", "translation", "scanner"],

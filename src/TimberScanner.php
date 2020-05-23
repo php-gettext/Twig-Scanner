@@ -24,12 +24,12 @@ class TimberScanner extends TwigScanner
     protected $functions = [
         '__' => 'text',
         '_e' => 'text',
-        '_x' => 'text_context',
-        '_ex' => 'text_context',
-        '_n' => 'single_plural_number',
-        '_nx' => 'single_plural_number_context',
-        '_n_noop' => 'single_plural',
-        '_nx_noop' => 'single_plural_context',
+        '_x' => 'textContext',
+        '_ex' => 'textContext',
+        '_n' => 'singlePluralNumber',
+        '_nx' => 'singlePluralNumberContext',
+        '_n_noop' => 'singlePlural',
+        '_nx_noop' => 'singlePluralContext',
     ];
 
     /**
@@ -56,7 +56,7 @@ class TimberScanner extends TwigScanner
         );
     }
 
-    protected function text_context(ParsedFunction $function): ?Translation
+    protected function textContext(ParsedFunction $function): ?Translation
     {
         list($original, $context, $domain) = array_pad($function->getArguments(), 3, null);
 
@@ -66,7 +66,7 @@ class TimberScanner extends TwigScanner
         );
     }
 
-    protected function single_plural_number(ParsedFunction $function): ?Translation
+    protected function singlePluralNumber(ParsedFunction $function): ?Translation
     {
         list($original, $plural, $number, $domain) = array_pad($function->getArguments(), 4, null);
 
@@ -76,7 +76,7 @@ class TimberScanner extends TwigScanner
         );
     }
 
-    protected function single_plural_number_context(ParsedFunction $function): ?Translation
+    protected function singlePluralNumberContext(ParsedFunction $function): ?Translation
     {
         list($original, $plural, $number, $context, $domain) = array_pad($function->getArguments(), 5, null);
 
@@ -86,7 +86,7 @@ class TimberScanner extends TwigScanner
         );
     }
 
-    protected function single_plural(ParsedFunction $function): ?Translation
+    protected function singlePlural(ParsedFunction $function): ?Translation
     {
         list($original, $plural, $domain) = array_pad($function->getArguments(), 3, null);
 
@@ -96,7 +96,7 @@ class TimberScanner extends TwigScanner
         );
     }
 
-    protected function single_plural_context(ParsedFunction $function): ?Translation
+    protected function singlePluralContext(ParsedFunction $function): ?Translation
     {
         list($original, $plural, $context, $domain) = array_pad($function->getArguments(), 4, null);
 

@@ -65,13 +65,13 @@ Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes.
 
 The GPL-3 License (GPL-3). Please see [LICENSE](LICENSE) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/php-gettext/twig-scanner.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/gettext/twig-scanner.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/php-gettext/Twig-Scanner/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/php-gettext/Twig-Scanner.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/php-gettext/twig-scanner.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/gettext/twig-scanner.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/php-gettext/twig-scanner
+[link-packagist]: https://packagist.org/packages/gettext/twig-scanner
 [link-travis]: https://travis-ci.org/php-gettext/Twig-Scanner
 [link-scrutinizer]: https://scrutinizer-ci.com/g/php-gettext/Twig-Scanner
-[link-downloads]: https://packagist.org/packages/php-gettext/twig-scanner
+[link-downloads]: https://packagist.org/packages/gettext/twig-scanner

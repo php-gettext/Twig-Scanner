@@ -15,6 +15,7 @@ namespace Gettext\Scanner;
 use Twig\Environment;
 use Twig\Source;
 use Twig\Node\Expression\FunctionExpression;
+use Twig\Node\ModuleNode;
 
 class TwigFunctionsScanner implements FunctionsScannerInterface
 {
@@ -65,6 +66,14 @@ class TwigFunctionsScanner implements FunctionsScannerInterface
 
         foreach ($token->getIterator() as $subToken) {
             $this->extractGettextFunctions($subToken, $filename, $functions);
+        }
+        
+        if($token instanceof ModuleNode){
+            $embeddedTemplates = $token->getAttribute('embedded_templates');
+            foreach($embeddedTemplates as $embed)
+            {
+                $this->extractGettextFunctions($embed, $filename, $functions);
+            }
         }
     }
 

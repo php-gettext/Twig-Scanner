@@ -74,7 +74,7 @@ class TimberFunctionsScannerTest extends TestCase
 
         // text 3
         $function = array_shift($functions);
-        $this->cmp($function, $file, 7, '__', [ 'text 3 (with parenthesis)']);
+        $this->cmp($function, $file, 7, '__', ['text 3 (with parenthesis)']);
 
         // text 4
         $function = array_shift($functions);

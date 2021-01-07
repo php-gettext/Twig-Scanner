@@ -36,10 +36,12 @@ class TimberScannerTest extends TestCase
         $scanner = new TimberScanner(Translations::create());
         list('' => $translations) = $this->initAndGetTranslations($scanner);
 
-        $this->assertCount(8, $translations);
+        $this->assertCount(9, $translations);
         $this->assertCount(0, $translations->getHeaders());
 
         $file = __DIR__ . '/assets/default-domain.po';
+        // Note: This test can fail due to `git config core.autocrlf` converting line endings to CRLF
+        // Double check any test error output for `#Warning: Strings contain different line endings!`
         $this->assertSame(
             file_get_contents($file),
             (new PoGenerator())->generateString($translations),
@@ -59,6 +61,8 @@ class TimberScannerTest extends TestCase
         $this->assertCount(1, $tr1);
         $this->assertCount(1, $tr1->getHeaders());
         $file1 = __DIR__ . '/assets/text-domain1.po';
+        // Note: This test can fail due to `git config core.autocrlf` converting line endings to CRLF
+        // Double check any test error output for `#Warning: Strings contain different line endings!`
         $this->assertSame(
             file_get_contents($file1),
             (new PoGenerator())->generateString($tr1),
@@ -68,6 +72,8 @@ class TimberScannerTest extends TestCase
         $this->assertCount(2, $tr2);
         $this->assertCount(1, $tr2->getHeaders());
         $file2 = __DIR__ . '/assets/text-domain2.po';
+        // Note: This test can fail due to `git config core.autocrlf` converting line endings to CRLF
+        // Double check any test error output for `#Warning: Strings contain different line endings!`
         $this->assertSame(
             file_get_contents($file2),
             (new PoGenerator())->generateString($tr2),

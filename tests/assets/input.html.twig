@@ -21,3 +21,8 @@
     </p>
     <p>
 </div>
+{% embed 'embed.html.twig' %}
+    {% block main %}
+        <p>{{ __("text 12 content inside a block in a embed template") }}</p>
+    {% endblock %}
+{% endembed %}

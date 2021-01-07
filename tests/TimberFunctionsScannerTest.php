@@ -62,7 +62,7 @@ class TimberFunctionsScannerTest extends TestCase
         $file = __DIR__ . '/assets/input.html.twig';
         $code = file_get_contents($file);
         $functions = $scanner->scan($code, $file);
-        $this->assertCount(11, $functions);
+        $this->assertCount(12, $functions);
 
         // text 1
         $function = array_shift($functions);

@@ -36,3 +36,7 @@ msgstr ""
 msgid "text 11 with plural"
 msgid_plural "The plural form"
 msgstr[0] ""
+
+#: ./tests/assets/input.html.twig:26
+msgid "text 12 content inside a block in a embed template"
+msgstr ""

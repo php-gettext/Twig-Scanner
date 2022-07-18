@@ -39,5 +39,10 @@
             "phpcs"
         ],
         "cs-fix": "php-cs-fixer fix"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
     }
 }
